@@ -3,6 +3,7 @@ package db;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.HttpRequestUtils;
 import webserver.http.Cookie;
 
 import java.util.Map;
@@ -35,6 +36,17 @@ public class SessionDataBase {
 
     public static boolean isLoginUser(String userId) {
         return session.containsKey(userId);
+    }
+
+    public static boolean isValidCookie(Map<String, String> requestHeader) {
+        if (requestHeader.containsKey("Cookie")) {
+            String cookie = requestHeader.get("Cookie");
+            Map<String, String> cookieMap = HttpRequestUtils.parseCookies(cookie);
+            log.debug("cookieMap : {}", cookieMap.toString());
+            String sessionId = cookieMap.get("sessionId");
+            return SessionDataBase.isLoginUser(sessionId);
+        }
+        return false;
     }
 
 }
