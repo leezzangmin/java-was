@@ -13,6 +13,7 @@ import webserver.http.HttpStatus;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 
 import static webserver.http.HttpResponse.response200Header;
 
@@ -108,4 +109,22 @@ public class UserController {
         return response;
     }
 
+    public HttpResponse list(HttpRequest request) {
+        List<User> users = UserDataBase.findAll();
+
+        StringBuilder sb = new StringBuilder();
+        HttpResponse response = HttpResponse.response200Header(request);
+        sb.append("<html> <head> <body>");
+        for (User user: users) {
+            sb.append("<tr>");
+            sb.append("<td>" + user.getUserId() + "</td>");
+            sb.append("<br> </tr>");
+        }
+        sb.append("</body> </head> </html>");
+
+        byte[] body = sb.toString().getBytes();
+        response.addBody(body);
+
+        return response;
+    }
 }

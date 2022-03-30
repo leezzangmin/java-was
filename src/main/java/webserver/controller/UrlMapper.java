@@ -38,6 +38,8 @@ public class UrlMapper {
                 return userController.login(request);
             case "/user/logout":
                 return userController.logout(request);
+            case "/user/list":
+                return userController.list(request);
             default:
                 return null;
         }
