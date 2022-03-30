@@ -49,8 +49,6 @@ public class RequestHandler extends Thread {
         String version = tokens[2];
 
         Map<String, String> requestHeader = readRequestHeader(br);
-        boolean isLogin = isValidCookie(requestHeader);
-        log.debug("isLogin : {}", isLogin);
 
         String requestBody = null;
 
@@ -62,18 +60,7 @@ public class RequestHandler extends Thread {
             log.debug("Content-Length: {}", requestBody.length());
         }
 
-        return new HttpRequest(method, url, version, requestHeader, requestBody, isLogin);
-    }
-
-    private boolean isValidCookie(Map<String, String> requestHeader) {
-        if (requestHeader.containsKey("Cookie")) {
-            String cookie = requestHeader.get("Cookie");
-            Map<String, String> cookieMap = HttpRequestUtils.parseCookies(cookie);
-            log.debug("cookieMap : {}", cookieMap.toString());
-            String sessionId = cookieMap.get("sessionId");
-            return SessionDataBase.isLoginUser(sessionId);
-        }
-        return false;
+        return new HttpRequest(method, url, version, requestHeader, requestBody);
     }
 
     private String[] readRequestLine(BufferedReader br) throws IOException {

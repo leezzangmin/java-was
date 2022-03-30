@@ -110,20 +110,28 @@ public class UserController {
     }
 
     public HttpResponse list(HttpRequest request) {
-        List<User> users = UserDataBase.findAll();
+        HttpResponse response = null;
+        if (SessionDataBase.isValidCookie(request.getRequestHeader())){
+            List<User> users = UserDataBase.findAll();
 
-        StringBuilder sb = new StringBuilder();
-        HttpResponse response = HttpResponse.response200Header(request);
-        sb.append("<html> <head> <body>");
-        for (User user: users) {
-            sb.append("<tr>");
-            sb.append("<td>" + user.getUserId() + "</td>");
-            sb.append("<br> </tr>");
+            StringBuilder sb = new StringBuilder();
+            response = HttpResponse.response200Header(request);
+            sb.append("<html> <head> <body>");
+            for (User user: users) {
+                sb.append("<tr>");
+                sb.append("<td>" + user.getUserId() + "</td>");
+                sb.append("<br> </tr>");
+            }
+            sb.append("</body> </head> </html>");
+
+            byte[] body = sb.toString().getBytes();
+            response.addBody(body);
+
+            return response;
         }
-        sb.append("</body> </head> </html>");
-
-        byte[] body = sb.toString().getBytes();
-        response.addBody(body);
+        response = new HttpResponse(request.getVersion(), HttpStatus.FOUND);
+        response.addHeader("Content-Type", "text/html;charset=utf-8");
+        response.addHeader("Location", INDEX_PAGE_URL);
 
         return response;
     }
