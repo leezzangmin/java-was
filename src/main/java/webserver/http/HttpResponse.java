@@ -52,4 +52,24 @@ public class HttpResponse {
         response.addHeader("Content-Type", "text/html;charset=utf-8");
         return response;
     }
+
+    public static HttpResponse responseHeader(HttpRequest request) {
+        String uri = request.getUrl();
+        String contentType = defineContentType(uri);
+
+        HttpResponse response = new HttpResponse(request.getVersion(), HttpStatus.OK);
+        response.addHeader("Content-Type", "text/" + contentType + ";charset=utf-8");
+        return response;
+    }
+
+    private static String defineContentType(String uri) {
+        if (uri.endsWith(".css")) {
+            return "css";
+        }else if(uri.endsWith(".js")) {
+            return "js";
+        }else if(uri.endsWith(".ico")) {
+            return "ico";
+        }
+        return "html";
+    }
 }

@@ -13,6 +13,7 @@ public class UrlMapper {
 
     private static final UserController userController = UserController.getInstance();
     private static final IndexController indexController = IndexController.getInstance();
+    private static final StaticResourceController staticResourceController = StaticResourceController.getInstance();
 
     public static HttpResponse getResponse(HttpRequest request) {
         String url = request.getUrl();
@@ -21,7 +22,7 @@ public class UrlMapper {
 
     private static HttpResponse getResponse(String url, HttpRequest request) {
         if (url.endsWith(".js") || url.endsWith(".css") || url.endsWith(".ico")) {
-            return null;
+            return staticResourceController.service(request);
         }
 
         // Function<HttpRequest, HttpResponse> 함수형 프로그래밍 개선필요
