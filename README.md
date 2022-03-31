@@ -53,3 +53,10 @@ was는 보통 앞단에 웹 서버를 두고, 요청 -> (웹 서버 -> was -> DB
 - 이 때, cookie는 sessionId로 관리되어 서버에 저장된다.
 - browser에 저장된 cookie는 한 번 발급되면 expire 조건이 만족되기 전까지 HttpRequest에 항상 포함되어 요청된다.
 - Server는 HttpRequest에 담겨온 Cookie 정보를 읽고 sessionId를 통해 쿠키를 조회한 후, 유효하면 response에 cookie 정보를 다시 담아 반환한다.
+
+### Step 05
+
+### 동적 html
+
+- 어댑터를 제외한 FrontController패턴을 적용하기 위해 노력하였음
+- 컨트롤러 매핑과 컨트롤러 호출을 분리 하는 리팩토링 과정 필요

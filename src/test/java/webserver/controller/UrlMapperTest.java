@@ -21,7 +21,7 @@ class UrlMapperTest {
                 "Sec-Fetch-Mode","no-cors",
                 "Accept-Language","ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
         );
-        HttpRequest request = new HttpRequest("GET", "/index.html", "HTTP/1.1", tempMap, null, false);
+        HttpRequest request = new HttpRequest("GET", "/index.html", "HTTP/1.1", tempMap, null);
         HttpResponse response = new HttpResponse("HTTP/1.1", HttpStatus.OK);
 
         //when
