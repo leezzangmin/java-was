@@ -14,6 +14,7 @@ public class UrlMapper {
     private static final UserController userController = UserController.getInstance();
     private static final IndexController indexController = IndexController.getInstance();
     private static final StaticResourceController staticResourceController = StaticResourceController.getInstance();
+    private static final MemoController memoController = MemoController.getInstance();
 
     public static HttpResponse getResponse(HttpRequest request) {
         String url = request.getUrl();
@@ -41,6 +42,10 @@ public class UrlMapper {
                 return userController.logout(request);
             case "/user/list":
                 return userController.list(request);
+            case "/memo/create":
+                return memoController.create(request);
+            case "/memo/form.html":
+                return memoController.createForm(request);
             default:
                 return null;
         }

@@ -26,6 +26,10 @@ public class Cookie {
         return sb.toString();
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public void expire() {
         this.expireDateTime = "Expires=Mon, 28-Mar-1970 06:41:18 GMT;";
     }
